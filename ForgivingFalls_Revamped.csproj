@@ -2,16 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <AssemblyName>PeakForgivingFalls</AssemblyName>
-    <Product>Peak Forgiving Falls</Product>
-    <Version>1.0.1</Version>
+    <AssemblyName>ForgivingFalls_Revamped</AssemblyName>
+    <RootNamespace>ForgivingFallsRevamped</RootNamespace>
+    <Product>ForgivingFalls Revamped</Product>
+    <Version>1.1.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <RestoreAdditionalProjectSources>
       https://api.nuget.org/v3/index.json;
       https://nuget.bepinex.dev/v3/index.json;
     </RestoreAdditionalProjectSources>
-    <PeakDir>H:\SteamLibrary\steamapps\common\PEAK</PeakDir>
+    <PeakDir>/home/kaylin/.local/share/Steam/steamapps/common/PEAK</PeakDir>
   </PropertyGroup>
 
   <ItemGroup>

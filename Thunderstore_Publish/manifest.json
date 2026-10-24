@@ -1,9 +1,9 @@
 {
-    "name": "PeakForgivingFalls",
-    "version_number": "1.0.1",
-    "website_url": "https://github.com/Pandaismyname1/PeakForgivingFalls",
-    "description": "Allows you to hook into walls, resetting your momentum, and preventing fall damage.",
+    "name": "ForgivingFalls_Revamped",
+    "version_number": "1.1.0",
+    "website_url": "https://github.com/kaylincoded/ForgivingFalls_Revamped",
+    "description": "Grab a wall out of a fall and keep it. Updated for PEAK 3.0.0 and retuned: clamps the game's own out-of-stamina slide under the fall-damage threshold instead of replacing it, and caps the timer that peels you off. Configurable.",
     "dependencies": [
-        "BepInEx-BepInExPack_PEAK-5.4.2403"
+        "BepInEx-BepInExPack_PEAK-5.4.75301"
     ]
 }

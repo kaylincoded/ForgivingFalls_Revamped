@@ -1,54 +1,52 @@
-# Peak Forgiving Falls
+# ForgivingFalls Revamped
 
-A BepInEx plugin for PEAK that makes climbing more forgiving by preventing accidental falls when running out of stamina.
+A fork of [Pandaismyname1's PeakForgivingFalls](https://github.com/Pandaismyname1/PeakForgivingFalls),
+updated for current PEAK and retuned to work with the game's climbing code instead of over it.
+All credit for the original idea and implementation goes to Pandaismyname1; MIT, same as upstream.
 
-## Features
+Grab a wall on the way down and you get to keep it. Run out of stamina mid-climb and you slide
+instead of being peeled straight off.
 
-- Prevents instant falling when running out of stamina while climbing
-- Creates a more forgiving climbing experience
-- Allows players to recover and continue climbing even after a brief stamina loss
+## Why a revamp
 
-## Installation
+Since the original release, PEAK grew its own version of this mechanic. `StartClimbRpc` now slides
+you down the wall when you grab it out of stamina, scaled by how far you reached and how fast you
+were already falling, and it tops up a timer that `Climbing()` squares into a ramp that eventually
+peels you off. Fall damage from a grab lands once that slide passes roughly 17.9.
 
-### Manual Installation
+Two things followed from that:
 
-1. Install [BepInEx](https://github.com/BepInEx/BepInEx) if you haven't already
-2. Extract the release zip file into your PEAK game directory
-3. Make sure the mod DLL is placed in the `BepInEx/plugins` folder
+- The original mod stopped working outright. `playerSlide` became a property backed by a private
+  field, so its `GetField("playerSlide")` lookup returned null and the patch quietly did nothing.
+- Hard-setting the slide to a flat value, as the original did, now throws away tuning the game
+  does for itself.
 
-### Thunderstore Installation (Recommended)
-
-1. Install the mod via [Thunderstore Mod Manager](https://www.overwolf.com/app/Thunderstore-Thunderstore_Mod_Manager)
-2. Launch the game
+So this version trims rather than replaces. It clamps the slide below the fall-damage threshold
+and caps the peel-off timer, and lets the game's own curves shape everything under those limits.
 
 ## Configuration
 
-Currently, there are no configuration options. The mod works automatically after installation.
+`BepInEx/config/ForgivingFalls_Revamped.cfg`, written on first launch.
+
+| Setting | Default | What it does |
+| --- | --- | --- |
+| `MaxAttachSlide` | `15` | Largest downward slide a wall grab may hand you. Fall damage starts past roughly 17.9, so the default keeps a grab survivable while leaving the game's slide curve intact below it. `5` matches the original mod, `0` removes the slide. |
+| `MaxOutOfStaminaClimbTime` | `0.5` | Cap in seconds on the out-of-stamina climb timer after a grab. PEAK squares that timer to ramp the slide that peels you off, so a lower cap buys a longer hang. |
+| `ResetFallTimerOnAttach` | `true` | Counts a grab as the end of the fall, so the landing after it is not charged for the airtime before it. PEAK already does this while you have stamina; this extends it to grabs made on empty. |
+
+## Installation
+
+Install through a mod manager, or drop `ForgivingFalls_Revamped.dll` in `BepInEx/plugins/`.
 
 ## Compatibility
 
-- Designed for PEAK version: Latest Steam release
+- Verified against PEAK build 26155610 (Unity 6000.3.15f1), the 3.0.0 crossplay line
 - BepInEx 5.x
+- Mods are disabled in crossplay lobbies, so this applies to Steam-only lobbies
 
-## For Developers
-
-### Building from Source
-
-1. Clone the repository
-2. Update the `PeakDir` property in the `PeakForgivingFalls.csproj` file to point to your PEAK installation
-3. Build the solution using your preferred IDE or via command line:
-   ```
-   dotnet build
-   ```
-
-## Credits
-
-- Created with BepInEx plugin template
+Safe to install alongside the original, which uses a different plugin GUID — though the original
+does nothing on current builds, so there is no reason to run both.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-If you encounter any issues or have suggestions, please create an issue on the GitHub repository.
+MIT, inherited from the original. See LICENSE.
