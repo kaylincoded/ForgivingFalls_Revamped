@@ -1,5 +1,7 @@
 # ForgivingFalls Revamped
 
+<img src="Thunderstore_Publish/icon.png" alt="ForgivingFalls Revamped" width="160" align="right">
+
 A fork of [Pandaismyname1's PeakForgivingFalls](https://github.com/Pandaismyname1/PeakForgivingFalls),
 updated for current PEAK and retuned to work with the game's climbing code instead of over it.
 All credit for the original idea and implementation goes to Pandaismyname1; MIT, same as upstream.
